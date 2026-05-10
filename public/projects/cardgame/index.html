@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deck-building Combat Game</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="game-container">
+        <!-- Top Info: Enemy Status & Hand -->
+        <div class="top-area" style="display: flex; align-items: center; gap: 20px; padding-top: 10px;">
+            <div class="status-bar enemy-status">
+                <div class="portrait enemy-portrait"></div>
+                <div class="stats">
+                    <div class="name">적 (Enemy)</div>
+                    <div class="hp-bar-container">
+                        <div class="hp-bar" id="enemy-hp-bar"></div>
+                        <span class="hp-text" id="enemy-hp-text">20 / 20</span>
+                    </div>
+                    <div class="stats-row">
+                        <span>SPD: <span id="e-spd">0</span></span> | 
+                        <span>INT: <span id="e-int">0</span></span> | 
+                        <span>STR: <span id="e-str">0</span></span> | 
+                        <span>COL: <span id="e-col">0</span></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hand-container" id="enemy-hand">
+                <!-- Cards will be dynamically added here -->
+            </div>
+            
+            <div class="deck-info">
+                <div>스태미나(덱): <span id="enemy-deck-count">10</span></div>
+            </div>
+        </div>
+
+        <!-- Battle Board -->
+        <div class="battle-board">
+            <!-- Enemy Rail -->
+            <div class="rail-container enemy-rail-container">
+                <div class="rail-label">적 레일</div>
+                <div class="rail" id="enemy-rail"></div>
+            </div>
+
+            <!-- Indicator & Action Area -->
+            <div class="center-indicator">
+                <button id="start-btn" class="action-btn">전투 시작</button>
+            </div>
+
+            <!-- Player Rail -->
+            <div class="rail-container player-rail-container">
+                <div class="rail-label">내 레일</div>
+                <div class="rail" id="player-rail"></div>
+            </div>
+        </div>
+
+        <!-- Bottom Info: Player Status & Hand -->
+        <div class="bottom-area">
+            <div class="status-bar player-status">
+                <div class="portrait player-portrait"></div>
+                <div class="stats">
+                    <div class="name">플레이어</div>
+                    <div class="hp-bar-container">
+                        <div class="hp-bar" id="player-hp-bar"></div>
+                        <span class="hp-text" id="player-hp-text">20 / 20</span>
+                    </div>
+                    <div class="stats-row">
+                        <span>SPD: <span id="p-spd">0</span></span> | 
+                        <span>INT: <span id="p-int">0</span></span> | 
+                        <span>STR: <span id="p-str">0</span></span> | 
+                        <span>COL: <span id="p-col">0</span></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hand-container" id="player-hand">
+                <!-- Cards will be dynamically added here -->
+            </div>
+            
+            <div class="deck-info" id="player-deck-area">
+                <div>스태미나(덱): <span id="deck-count">10</span></div>
+                <div id="reroll-info" style="font-size: 0.8rem; margin-top: 5px; color: #fbbf24;">리롤: <span id="p-reroll-count">0</span>회 남음</div>
+            </div>
+        </div>
+
+        <!-- Context Menu for Base Action -->
+        <div id="action-menu" class="hidden">
+            <div class="menu-item" data-action="defenseless">무방비</div>
+            <div class="menu-item" data-action="guard">일반 방어</div>
+            <div class="menu-item" data-action="dodge">일반 회피</div>
+            <div class="menu-item" data-action="insight">일반 통찰</div>
+        </div>
+        
+        <!-- Overlay for Battle Animation Text -->
+        <div id="animation-overlay"></div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>

@@ -12,6 +12,7 @@ export default function Home() {
         <li><a href = "/projects/사각형생성.html">사각형생성</a></li>
         <li><a href = "https://cfghle.github.io/guitar.net/">Guitar.net</a></li>
         <li><a href = "https://cfghle.github.io/Cfghle/">잡동사니 스페이스</a></li>
+        <li><a href = "/projects/cardgame/index.html">카드게임</a></li>
       </ul>
     </div>
   );
