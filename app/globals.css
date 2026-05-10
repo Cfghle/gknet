@@ -3,14 +3,48 @@
 
 .header{
     background-Color: #101010;
-    padding: "1rem";
 }
 .header-links{
-    background-color: lightgray;
+    --links-color: rgb(27, 106, 133);
+    color: oklch(from var(--links-color) clamp(0, (0.5 - l)*infinity, 1) 0 0 / 1);
+    background-color: var(--links-color);
     display: flex;
     flex-direction: row;
 }
 .header-links a{
-    color: white;
+    position: relative;
+    display: flex;
     margin-right: 3rem;
+    background-color: #00000071;
+    border-radius: 10px;
+    padding: 0.2rem 0.7rem;
+    margin: 0.2rem;
+    backdrop-filter: blur(4px);
+
+}
+
+.header-links a::before{/*글래스 효과*/
+    content: "";
+    position: absolute;
+    border-radius: 10px;
+    inset: 0;
+    padding: 1px;/*테두리 두께*/
+
+    background: linear-gradient(
+    164deg,
+    rgba(255, 255, 255, 0.5) 8.97%,
+    rgba(255, 255, 255, 0.05) 33.82%,
+    rgba(255, 255, 255, 0) 54.53%,
+    rgba(255, 255, 255, 0.05) 75.25%,
+    rgba(255, 255, 255, 0.2) 91.82%
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+
+    pointer-events: none;
+}
+.header-links a:hover{
+    background-color: #ffffff20;
+    text-underline-offset: 3px;
 }

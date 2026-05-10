@@ -1,0 +1,13 @@
+.projects-list {
+    list-style-type: disc; /* 점 모양 (circle, square 등 가능) */
+    list-style-position: inside; /* 점을 박스 안쪽으로 넣기 */
+    padding-left: 20px; /* 탭(들여쓰기) 효과 */
+}
+.projects-list li a:hover{
+    color: blue;
+    text-underline-offset: 3px;
+    background-color: #ffffff20;
+}
+.projects-list li a:click{
+    color: red;
+}
