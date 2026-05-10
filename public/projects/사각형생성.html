@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>테스트</title>
+        <h1>테스트</h1>
+        <script type="application/javascript">
+         
+        </script>
+        <style>
+        #canvas{}
+        </style>
+    </head>
+    <body>
+        <canvas id="canvas" width=600, height=300>
+        </canvas>
+        <br>
+        <button id = 'clearButton'>창 지우기</button>
+
+        <script type="application/javascript">
+        let canvas = document.getElementById('canvas'),
+            context = canvas.getContext('2d');
+        context.lineJoin = 'round';
+        context.lineWidth = 10;
+        let randWidth = Math.floor(Math.random()*canvas.width);
+        let randHeight = Math.floor(Math.random()*canvas.height);
+        let randSize =  Math.floor(Math.random()*50);
+        let randRed = Math.floor(Math.random()*255),
+            randBlue = Math.floor(Math.random()*255),
+            randGreen = Math.floor(Math.random()*255);
+        let clearButton = document.getElementById('clearButton');
+
+        function drawText(){/**텍스트를 출력하는 함수*/
+        context.fillStyle= 'red';
+        context.font = '24px 굴림';        
+        context.fillText('클릭하여 지우기',175,200);
+        }
+/**박스를 그리는 함수*/
+        function drawBox(x=0,y=0,w=10,h=10){
+        context.fillStyle= `rgb(${randRed},${randBlue},${randGreen})`;
+        context.fillRect(x, y, w, h);
+        }
+/**그림자 함수*/
+        function setIconShadow(x=4, y=4, b=3){
+        context.shadowColor = `rgba(0,0,0,0.7)`;     
+        context.shadowOffsetX = x;     
+        context.shadowOffsetY = y;     
+        context.shadowBlur = b;     
+        }
+/**빈 박스 출력*/
+        function drawWireBox(x=0,y=0,w=10,h=10){
+        
+        context.strokeStyle = 'yellow';
+        context.strokeRect(x,y,w,h)        
+        }
+/**렌덤 섞는 함수*/
+        function randomShuffle(){
+        randWidth = Math.floor(Math.random()*canvas.width);
+        randHeight = Math.floor(Math.random()*canvas.height);
+        randSize =  Math.floor(Math.random()*50);
+        randRed = Math.floor(Math.random()*255);
+        randBlue = Math.floor(Math.random()*255);
+        randGreen = Math.floor(Math.random()*255);
+        }
+/**두 개 합해서 호춣할 때마다 바뀌는 함수*/   
+        function drawRandomBox(){
+        randomShuffle();
+        drawBox(randWidth,randHeight,randSize,randSize);
+        }
+/**테스트 용 함수*/
+        function justTest(){
+        randomShuffle();
+        }
+/**버튼을 누를 때 클리어 함수*/
+        clearButton.onclick = function(){
+        context.clearRect(0,0,canvas.width, canvas.height);        
+        };
+setInterval(drawRandomBox,1);
+        </script>
+    </body>
+
+
+</html>

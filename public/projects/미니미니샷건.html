@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+      <meta charset="utf-8">
+      <title>Shoooot the Shotgun!!!</title>
+
+    </head>
+    <body>
+      <canvas id="canvas" width="710" height="540"></canvas>
+      <br>
+      <button id="addCircle">클린업</button>
+      <script type="text/javascript">
+let canvas = document.getElementById("canvas"),
+    cleanUpButton = document.getElementById("button");
+let context = canvas.getContext("2d");
+
+
+
+let randAngle = Math.floor(Math.random()*360);//렌덤 각도 생성
+let randRange = Math.floor(Math.random()*100);
+
+/**
+ * 모든 렌덤 요소 섞는 함수
+ */
+function randShuffle(){
+    let randAngle = Math.floor(Math.random()*360);
+    let randRange = Math.floor(Math.random()*100);
+}
+
+
+
+
+/**
+ * 원을 그리는 함수
+ * @param {원의 x좌표} x 
+ * @param {원의 y좌표} y 
+ * @param {반지름 크기} r 
+ */
+function drawCircle(x, y, r = 10){
+    context.beginPath();
+    context.arc(x,y,r,0,2*Math.PI);
+    context.fill();
+
+}
+/**중심점을 중심으로 반지름 r의 점을 반환하는 함수 */
+function returnCirclePoint(x = 10, y = 10 , r = 10, a = 45){
+    let radian = a*(Math.PI/180);
+    let arcXPos = x+r*Math.cos(radian);
+    let arcYPos = y+r*Math.sin(radian);
+    return {x: arcXPos, y: arcYPos};
+}
+
+
+/**
+ * 
+ * @param {겨냥하려는 x좌표} x 
+ * @param {겨냥하려는 y좌표} y 
+ */
+function getOneShot(x, y){
+    let randAngle = Math.floor(Math.random()*360);//렌덤 각도 생성
+    let randRange = Math.floor(Math.random()*100);
+    bulletPoint = returnCirclePoint(x,y, randRange, randAngle);
+    drawCircle(bulletPoint.x, bulletPoint.y);
+}
+
+
+/**캔버스 클릭 했을 때 좌표 출력 */
+canvas.onclick = function(event){
+    const mouseX = event.clientX - context.canvas.offsetLeft;
+    const mouseY = event.clientY - context.canvas.offsetTop
+
+    for(let i = 0; i<10; i++){
+        getOneShot(mouseX, mouseY);
+    }
+    randShuffle();  
+    randShuffle();
+}
+
+
+//테스트용
+/*let angle = 0
+let startAnimation = () =>{
+
+    drawCircle(canvas.width/2, canvas.height/2, 5);
+    justTest = returnCirclePoint(canvas.width/2, canvas.height/2,100, angle);
+    drawCircle(justTest.x, justTest.y);
+    angle = angle+1
+    
+    requestAnimationFrame(startAnimation);
+}
+requestAnimationFrame(startAnimation);
+*/
+      </script>
+    </body>
+</html>

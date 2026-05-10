@@ -20,11 +20,19 @@ export const metadata: Metadata = {
 export default function RootLayout({children,}: Readonly<{children: React.ReactNode;}>){
   return (
     <html lang="ko">
-      <header>
-        <h1 style = {{color: "blue", fontSize: "2rem", fontWeight: "bold"}}>기끽이넷</h1>
-      </header>
-      <body className="">{children}</body>
-      <footer>2026.05.10 생성</footer>
+      
+      <body className="">
+        <header className = "header">
+            <h1 style = {{color: "orange", fontSize: "2rem", fontWeight: "bold"}}><a href="/">기끽이넷</a></h1>
+            <div className = "header-links">
+              <a href = "https://www.youtube.com/@user-zc6rz4ez7d">유튜브</a>
+              <a href = "https://chzzk.naver.com/bd0721480c0c5aacffc621134bee3f30">치지직</a>
+            </div>
+        </header>
+        <main>{children}</main>
+        <footer>2026.05.10 생성</footer>
+      </body>
+      
     </html>
     
   );

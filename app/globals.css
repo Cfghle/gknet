@@ -1,1 +1,16 @@
 @import "tailwindcss";
+
+
+.header{
+    background-Color: #101010;
+    padding: "1rem";
+}
+.header-links{
+    background-color: lightgray;
+    display: flex;
+    flex-direction: row;
+}
+.header-links a{
+    color: white;
+    margin-right: 3rem;
+}
