@@ -9,6 +9,8 @@ export default function Home() {
       <ul>
         <li><a href = "/projects/미니미니샷건.html">미니미니샷건</a></li>
         <li><a href = "/projects/사각형생성.html">사각형생성</a></li>
+        <li><a href = "https://cfghle.github.io/guitar.net/">Guitar.net</a></li>
+        <li><a href = "https://cfghle.github.io/Cfghle/">잡동사니 스페이스</a></li>
       </ul>
     </div>
   );
