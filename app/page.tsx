@@ -1,5 +1,6 @@
 import Image from "next/image";
 import styles from './page.module.css';
+import Rocketgame from "@/public/projects/Rocketgame";
 
 export default function Home() {
   return (
@@ -14,6 +15,9 @@ export default function Home() {
         <li><a href = "https://cfghle.github.io/Cfghle/">잡동사니 스페이스</a></li>
         <li><a href = "/projects/cardgame/index.html">카드게임</a></li>
       </ul>
+
+
+      <Rocketgame></Rocketgame>
     </div>
   );
 }
