@@ -38,7 +38,9 @@ export default function RootLayout({children,}: Readonly<{children: React.ReactN
             </div>
         </header>
         <main>{children}</main>
-        <footer style = {{color: "gray"}}>2026.05.10 생성</footer>
+        <footer style = {{color: "gray"}}>
+          2026.05.10 생성
+          2026.07.08 업데이트</footer>
       </body>
       
     </html>
