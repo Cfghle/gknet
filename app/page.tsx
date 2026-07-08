@@ -16,8 +16,9 @@ export default function Home() {
         <li><a href = "/projects/cardgame/index.html">카드게임</a></li>
       </ul>
 
-
-      <Rocketgame></Rocketgame>
+      <div style = {{stroke: "black", border: "4px solid black", padding: 10, marginTop: 20}}>
+        <Rocketgame></Rocketgame>
+      </div>
     </div>
   );
 }
