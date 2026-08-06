@@ -2,7 +2,26 @@
 
 
 .header{
-    background-Color: #101010;
+    position: relative;
+    z-index: 0;
+    overflow: hidden;
+    background-color: #111111;
+}
+.header::before{
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+        radial-gradient(circle 200px at 9% 78%, #005580, transparent 70%),
+        radial-gradient(circle 240px at 83% 22%, #800051, transparent 70%);
+}
+.header::after{
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-color: rgba(17, 17, 17, 0.6);
 }
 .header-links{
     --links-color: rgb(27, 106, 133);
