@@ -1,19 +1,7 @@
 import Image from "next/image";
 import styles from './page.module.css';
 import Rocketgame from "@/public/projects/Rocketgame";
-
-
-
-
-
-function Monitor({ src }: { src: string }){
-  return (
-  <div className = {styles['monitor']}>
-    <img src = {src} alt = "" width = "100%" height = "100%"></img>
-  </div>
-  )
-}
-
+import Monitor from "./components/Monitor";
 
 
 export default function Home() {

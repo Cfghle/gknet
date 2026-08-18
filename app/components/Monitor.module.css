@@ -1,0 +1,21 @@
+.monitor {
+    width: min(710px, 100%);
+    aspect-ratio: 710 / 540; /* 폭이 줄어들면 높이도 비율대로 같이 줄어듦 */
+    box-sizing: border-box; /* 테두리가 폭 안에 포함되게 */
+    display: block;
+    margin: auto;
+    border-radius: 5%;
+    border: 30px solid black;
+    margin-bottom: 50px;
+    text-align: center;
+    /*image-rendering: crisp-edges;*/
+    image-rendering: pixelated;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+.monitor img {
+    display: block;
+    height: 100%;
+    width: auto;
+    max-width: none; /* Tailwind preflight의 img{max-width:100%}를 무시하고 원본 비율 유지 */
+}

@@ -1,19 +1,9 @@
+import Monitor from "@/app/components/Monitor";
+
 export default function ComicTest1() {
   return (
     <>
       <style>{`
-        .monitor {
-            width: 710px;
-            height: 540px; /* 높이 고정 */
-            display: block;
-            margin: auto;
-            border-radius: 5%;
-            border: 30px solid;
-            margin-bottom: 50px;
-            text-align: center;
-            /*image-rendering: crisp-edges;*/
-            image-rendering: pixelated;
-        }
         .messagebox{
             display: inline-block;
             font-size: 20px;
@@ -31,7 +21,9 @@ export default function ComicTest1() {
         }
       `}</style>
       <h1>테스트1</h1>
-      <div className="monitor">...</div>
+      <Monitor src="/media/comic/Untitled.png" />
+      <Monitor src="/media/comic/무제527.png" />
+      <Monitor src="/media/comic/opening.png" style={{height: "fit-content"}}/>
     </>
   );
 }
