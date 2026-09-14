@@ -25,7 +25,7 @@ function hslPack(h: number, s: number, l: number) {
   const f = (n: number) => l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)));
   return pack(f(0) * 255, f(8) * 255, f(4) * 255);
 }
-const hueColor = (i: number) => hslPack((i * 32) % 360, 1, 0.55);
+export const hueColor = (i: number) => hslPack((i * 32) % 360, 1, 0.55);
 
 // 이모지(ZWJ 조합 포함)가 쪼개지지 않게 문자 단위로 자른다
 const SEGMENTER = typeof Intl !== "undefined" && (Intl as unknown as { Segmenter?: unknown }).Segmenter

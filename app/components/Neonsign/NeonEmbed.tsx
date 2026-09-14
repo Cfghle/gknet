@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from "react";
 import Neonsign, { type NeonsignInput } from "./Neonsign";
-import { configFromHash } from "./exporter";
+import { configFromLocation } from "./share";
 
-// iframe으로 다른 사이트에 붙이는 용도. 주소의 #c= 에 담긴 설정으로 전광판만 화면 가득 보여준다.
+// iframe으로 다른 사이트에 붙이는 용도. 주소의 ?c= (예전 링크는 #c=) 에 담긴 설정으로 전광판만 화면 가득 보여준다.
 // 루트 레이아웃의 헤더·푸터를 뺄 수 없어서 고정 위치로 화면 전체를 덮는다
 export default function NeonEmbed() {
   const [input, setInput] = useState<NeonsignInput | undefined>(undefined);
@@ -12,7 +12,7 @@ export default function NeonEmbed() {
 
   useEffect(() => {
     const read = () => {
-      setInput(configFromHash(window.location.hash) as NeonsignInput | undefined);
+      setInput(configFromLocation(window.location.search, window.location.hash) as NeonsignInput | undefined);
       setReady(true);
     };
     read();

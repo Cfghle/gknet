@@ -59,6 +59,10 @@
   color: #e6e6e6;
   font-weight: 500;
 }
+.btnKakao {
+  background: #fee500;
+  color: #191919;
+}
 .btnIcon {
   padding: 4px 8px;
   background: transparent;

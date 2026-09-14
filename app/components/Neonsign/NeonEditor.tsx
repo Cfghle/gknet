@@ -23,15 +23,18 @@ import {
 } from "./types";
 import { deletePreset, loadPresetByName, loadPresets, savePreset, type Preset } from "./presets";
 import {
-  configFromHash,
+  LARGE_FILE_BYTES,
   downloadBlob,
-  encodeConfig,
+  estimateExport,
   exportFilename,
   exportGif,
   exportVideo,
   shareFile,
   videoSupport,
+  type ExportKind,
 } from "./exporter";
+import { configFromLocation, encodeConfig, previewSegments, SITE_TITLE } from "./share";
+import { kakaoShareEnabled, loadKakao, shareToKakao } from "./kakao";
 import styles from "./Neonsign.module.css";
 
 const CUSTOM_COLOR_DEFAULT = "#8a2be2";
@@ -116,6 +119,7 @@ export default function NeonEditor() {
 
   const [exporting, setExporting] = useState(false);
   const [exportStatus, setExportStatus] = useState("");
+  const abortRef = useRef<AbortController | null>(null);
   // 서버 렌더에서는 알 수 없으니 false로 두고, 브라우저에서 실제 지원 여부를 읽는다
   const canRecordVideo = useSyncExternalStore(
     noopSubscribe,
@@ -136,8 +140,9 @@ export default function NeonEditor() {
 
   useEffect(() => {
     loadPresets().then(setPresets);
+    if (kakaoShareEnabled) loadKakao().catch(() => {});
     // 공유받은 링크(#c=...)로 들어오면 그 설정으로 시작한다
-    const shared = configFromHash(window.location.hash);
+    const shared = configFromLocation(window.location.search, window.location.hash);
     if (shared !== undefined) {
       resolveConfig(shared, loadPresetByName)
         .then((c) => {
@@ -328,33 +333,57 @@ export default function NeonEditor() {
   }
 
   // --- 내보내기 · 공유 ---
-  async function makeFile(kind: "gif" | "video"): Promise<{ blob: Blob; filename: string } | null> {
+  async function makeFile(kind: ExportKind): Promise<{ blob: Blob; filename: string } | null> {
     const board = boardRef.current;
     if (!board || exporting) return null;
+
+    // 길이 제한은 없고, 크게 나올 것 같으면 만들기 전에 물어본다
+    const est = estimateExport(board, kind);
+    if (est.bytes > LARGE_FILE_BYTES) {
+      const wait = kind === "video" ? `\n영상은 실제 시간으로 녹화해서 약 ${Math.ceil(est.seconds)}초 걸립니다.` : "";
+      const ok = window.confirm(
+        `${Math.ceil(est.seconds)}초 분량이라 파일이 약 ${(est.bytes / 1024 / 1024).toFixed(0)}MB로 클 것 같아요.${wait}\n` +
+          "카카오톡·인스타그램에 올릴 때 실패하거나 오래 걸릴 수 있습니다. 계속할까요?"
+      );
+      if (!ok) {
+        setExportStatus("내보내기를 취소했습니다");
+        return null;
+      }
+    }
+
+    const controller = new AbortController();
+    abortRef.current = controller;
     setExporting(true);
     try {
       if (kind === "gif") {
-        const blob = await exportGif(board, (p) => setExportStatus(`GIF 만드는 중… ${Math.round(p * 100)}%`));
+        const blob = await exportGif(board, (p) => setExportStatus(`GIF 만드는 중… ${Math.round(p * 100)}%`), controller.signal);
         return { blob, filename: exportFilename("gif") };
       }
-      const { blob, ext } = await exportVideo(board, (p) => setExportStatus(`영상 녹화 중… ${Math.round(p * 100)}% (한 바퀴 도는 시간만큼 걸려요)`));
+      const { blob, ext } = await exportVideo(
+        board,
+        (p) => setExportStatus(`영상 녹화 중… ${Math.round(p * 100)}% (한 바퀴 도는 시간만큼 걸려요)`),
+        controller.signal
+      );
       return { blob, filename: exportFilename(ext) };
     } catch (e) {
-      setExportStatus("만들기 실패: " + (e instanceof Error ? e.message : String(e)));
+      if (e instanceof DOMException && e.name === "AbortError") setExportStatus("내보내기를 취소했습니다");
+      else setExportStatus("만들기 실패: " + (e instanceof Error ? e.message : String(e)));
       return null;
     } finally {
+      abortRef.current = null;
       setExporting(false);
       setPlaying(boardRef.current?.isPlaying() ?? true);
     }
   }
 
   const sizeText = (b: Blob) => (b.size > 1024 * 1024 ? (b.size / 1024 / 1024).toFixed(1) + "MB" : Math.round(b.size / 1024) + "KB");
+  const largeWarning = (b: Blob) => (b.size > LARGE_FILE_BYTES ? " ⚠ 용량이 커서 메신저·SNS에 올릴 때 실패하거나 오래 걸릴 수 있어요" : "");
 
   async function handleSave(kind: "gif" | "video") {
     const file = await makeFile(kind);
     if (!file) return;
     downloadBlob(file.blob, file.filename);
-    setExportStatus(`${file.filename} 저장 (${sizeText(file.blob)})`);
+    setExportStatus(`${file.filename} 저장 (${sizeText(file.blob)})${largeWarning(file.blob)}`);
   }
 
   async function handleShare(kind: "gif" | "video") {
@@ -362,13 +391,13 @@ export default function NeonEditor() {
     if (!file) return;
     const firstText = cfg.messages.find((m) => m.text)?.text?.replace(/\{[^{}:]*:|\}/g, "") || "전광판";
     const result = await shareFile(file.blob, file.filename, firstText);
-    if (result === "shared") setExportStatus("공유했습니다");
+    if (result === "shared") setExportStatus("공유했습니다" + largeWarning(file.blob));
     else if (result === "cancelled") setExportStatus("공유를 취소했습니다");
-    else setExportStatus(`이 브라우저는 파일 공유를 지원하지 않아 ${file.filename} 로 저장했습니다 (${sizeText(file.blob)})`);
+    else setExportStatus(`이 브라우저는 파일 공유를 지원하지 않아 ${file.filename} 로 저장했습니다 (${sizeText(file.blob)})${largeWarning(file.blob)}`);
   }
 
   function shareUrl(path: string) {
-    return `${window.location.origin}${path}#c=${encodeConfig(minimalConfig(cfg))}`;
+    return `${window.location.origin}${path}?c=${encodeConfig(minimalConfig(cfg))}`;
   }
 
   async function copyText(text: string, done: string) {
@@ -377,6 +406,22 @@ export default function NeonEditor() {
       setExportStatus(done);
     } catch {
       setExportStatus("클립보드에 복사하지 못했습니다");
+    }
+  }
+
+  async function handleKakao() {
+    const code = encodeConfig(minimalConfig(cfg));
+    const url = `${window.location.origin}/service/neonsign?c=${code}`;
+    try {
+      await shareToKakao({
+        url,
+        title: SITE_TITLE,
+        description: previewSegments(cfg).text || "움직이는 전광판 보기",
+        imageUrl: `${window.location.origin}/service/neonsign/og?c=${code}`,
+      });
+      setExportStatus("카카오톡 공유 창을 열었습니다");
+    } catch (e) {
+      setExportStatus("카카오톡 공유 실패: " + (e instanceof Error ? e.message : String(e)));
     }
   }
 
@@ -434,16 +479,26 @@ export default function NeonEditor() {
             <button className={`${styles.btn} ${styles.btnSub}`} disabled={exporting || !canRecordVideo} onClick={() => handleShare("video")}>
               영상으로 공유
             </button>
+            {kakaoShareEnabled && (
+              <button className={`${styles.btn} ${styles.btnKakao}`} disabled={exporting} onClick={handleKakao}>
+                카카오톡 공유
+              </button>
+            )}
             <button className={`${styles.btn} ${styles.btnSub}`} disabled={exporting} onClick={copyLink}>
               🔗 링크 복사
             </button>
             <button className={`${styles.btn} ${styles.btnSub}`} disabled={exporting} onClick={copyEmbedTag}>
               &lt;/&gt; 임베드 코드
             </button>
+            {exporting && (
+              <button className={`${styles.btn} ${styles.btnSub}`} onClick={() => abortRef.current?.abort()}>
+                ✕ 취소
+              </button>
+            )}
           </div>
           <div className={styles.status}>{exportStatus}</div>
           <p className={styles.hint}>
-            모든 문구가 한 바퀴 도는 만큼 담깁니다 (GIF 최대 20초, 영상 최대 30초). 공유는 휴대폰에서 누르면 카카오톡·인스타그램 같은 앱으로 바로 보낼 수 있고,
+            모든 문구가 한 바퀴 도는 만큼 담기고, 파일이 크게 나올 것 같으면 만들기 전에 알려 드립니다. 공유는 휴대폰에서 누르면 카카오톡·인스타그램 같은 앱으로 바로 보낼 수 있고,
             파일 공유가 안 되는 브라우저에서는 내려받기로 대신합니다. 인스타그램에는 영상이 잘 맞습니다. 링크와 임베드 코드는 설정을 주소에 담아서 따로 저장하지 않아도 됩니다.
           </p>
         </div>
