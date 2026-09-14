@@ -1,0 +1,74 @@
+/* 전광판 뷰 공통 스타일 - dv.view("미디어들/전광판", ...) 가 자동으로 읽어간다 */
+.ledbrd-root { font-size: 0.85rem; }
+
+.ledbrd-screen {
+    background: #0b0b0d;
+    border: 1px solid var(--background-modifier-border);
+    border-radius: 8px;
+    padding: 10px;
+    overflow-x: auto;
+    box-shadow: inset 0 0 24px rgba(0, 0, 0, 0.9);
+}
+.ledbrd-canvas { display: block; margin: 0 auto; }
+
+/* ===== 편집기 ===== */
+.ledbrd-bar { display: flex; align-items: center; gap: 8px; margin: 10px 0 6px; flex-wrap: wrap; }
+.ledbrd-btn {
+    padding: 6px 14px; border-radius: 6px; cursor: pointer; font-weight: 600; white-space: nowrap;
+    border: 1px solid var(--background-modifier-border);
+    background: var(--interactive-accent); color: var(--text-on-accent);
+}
+.ledbrd-btn.sub { background: var(--background-secondary); color: var(--text-normal); font-weight: 500; }
+.ledbrd-btn.icon { padding: 4px 8px; background: transparent; border: none; color: var(--text-faint); font-weight: 400; }
+.ledbrd-btn.icon:hover { color: var(--text-normal); }
+
+.ledbrd-sec { margin-top: 14px; }
+.ledbrd-sec > h4 { margin: 0 0 6px; font-size: 0.78rem; color: var(--text-muted); font-weight: 600; }
+
+/* 문구 목록 */
+.ledbrd-msg { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-bottom: 5px; }
+.ledbrd-msg input[type=text] {
+    flex: 1; min-width: 140px; padding: 5px 9px; border-radius: 6px;
+    border: 1px solid var(--background-modifier-border);
+    background: var(--background-primary); color: var(--text-normal);
+    font-family: var(--font-monospace); font-size: 0.8rem;
+}
+.ledbrd-msg input[type=color] { width: 24px; height: 22px; padding: 0; border: 1px solid var(--background-modifier-border); border-radius: 4px; background: none; cursor: pointer; flex-shrink: 0; }
+.ledbrd-toggle { padding: 4px 9px; font-size: 0.72rem; }
+.ledbrd-art {
+    flex: 1; min-width: 140px; padding: 5px 9px; border-radius: 6px; resize: vertical;
+    border: 1px solid var(--background-modifier-border);
+    background: var(--background-primary); color: var(--text-normal);
+    font-family: var(--font-monospace); font-size: 0.8rem; line-height: 1.1; letter-spacing: 0.15em;
+}
+.ledbrd-btn.sub.ledbrd-toggle.is-on { background: var(--interactive-accent); color: var(--text-on-accent); }
+.ledbrd-msg input[type=number] { width: 60px; padding: 4px 6px; border-radius: 6px; border: 1px solid var(--background-modifier-border); background: var(--background-primary); color: var(--text-normal); font-size: 0.75rem; }
+
+/* 설정 그리드 */
+.ledbrd-controls { display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; }
+.ledbrd-field { display: flex; align-items: center; gap: 6px; }
+.ledbrd-field > label { font-size: 0.72rem; color: var(--text-muted); white-space: nowrap; }
+.ledbrd-field input[type=range] { width: 92px; }
+.ledbrd-field select,
+.ledbrd-msg select {
+    padding: 4px 6px; border-radius: 6px; font-size: 0.75rem;
+    border: 1px solid var(--background-modifier-border);
+    background: var(--background-primary); color: var(--text-normal);
+}
+.ledbrd-field input[type=color] { width: 26px; height: 20px; padding: 0; border: 1px solid var(--background-modifier-border); border-radius: 4px; background: none; cursor: pointer; }
+.ledbrd-val { font-size: 0.7rem; color: var(--text-faint); font-family: var(--font-monospace); min-width: 2.4em; }
+
+/* 색 스와치 */
+.ledbrd-swatches { display: flex; gap: 5px; align-items: center; }
+.ledbrd-swatch { width: 16px; height: 16px; border-radius: 50%; border: 1px solid var(--background-modifier-border); cursor: pointer; padding: 0; }
+
+/* 임베드 코드 */
+.ledbrd-code {
+    width: 100%; min-height: 76px; resize: vertical;
+    font-family: var(--font-monospace); font-size: 0.72rem; line-height: 1.45;
+    padding: 8px 10px; border-radius: 6px;
+    border: 1px solid var(--background-modifier-border);
+    background: var(--background-primary); color: var(--text-normal);
+}
+.ledbrd-hint { font-size: 0.7rem; color: var(--text-faint); margin: 4px 0 0; }
+.ledbrd-status { font-size: 0.72rem; color: var(--text-muted); min-height: 1.2em; }

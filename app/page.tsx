@@ -16,6 +16,7 @@ export default function Home() {
         <li><a href = "https://cfghle.github.io/guitar.net/">Guitar.net</a></li>
         <li><a href = "https://cfghle.github.io/Cfghle/">잡동사니 스페이스</a></li>
         <li><a href = "/projects/cardgame/index.html">카드게임</a></li>
+        <li><a href = "/service/neonsign">전광판 </a></li>
       </ul>
 
       <div style = {{stroke: "black", border: "4px solid black", padding: 10, marginTop: 20}}>

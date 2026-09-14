@@ -1,0 +1,232 @@
+/* 전광판 웹 버전 스타일. 원본(옵시디언) view.css의 --배경/--텍스트 변수들을
+   리모컨/패널 느낌의 고정 다크 팔레트로 대체했다 */
+
+.root {
+  font-size: 0.85rem;
+  color: #e6e6e6;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.panel {
+  background: #1b1b1f;
+  border: 1px solid #333;
+  border-radius: 14px;
+  padding: 16px 18px 20px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+}
+
+.ledbrd-screen {
+  background: #0b0b0d;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 10px;
+  overflow-x: auto;
+  box-shadow: inset 0 0 24px rgba(0, 0, 0, 0.9);
+}
+.ledbrd-canvas {
+  display: block;
+  margin: 0 auto;
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 10px 0 6px;
+  flex-wrap: wrap;
+}
+.btn {
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  white-space: nowrap;
+  border: 1px solid #3a3a3a;
+  background: #ffa500;
+  color: #1a1200;
+}
+.btn:hover {
+  filter: brightness(1.08);
+}
+.btn:disabled {
+  opacity: 0.45;
+  cursor: default;
+  filter: none;
+}
+.btnSub {
+  background: #2a2a2e;
+  color: #e6e6e6;
+  font-weight: 500;
+}
+.btnIcon {
+  padding: 4px 8px;
+  background: transparent;
+  border: none;
+  color: #9a9a9a;
+  font-weight: 400;
+}
+.btnIcon:hover {
+  color: #e6e6e6;
+}
+.toggle.isOn {
+  background: #ffa500;
+  color: #1a1200;
+}
+
+.sec {
+  margin-top: 14px;
+}
+.sec > h4 {
+  margin: 0 0 6px;
+  font-size: 0.78rem;
+  color: #a3a3a3;
+  font-weight: 600;
+}
+
+.msgRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 5px;
+}
+.msgRow input[type="text"] {
+  flex: 1;
+  min-width: 140px;
+  padding: 5px 9px;
+  border-radius: 6px;
+  border: 1px solid #3a3a3a;
+  background: #0f0f11;
+  color: #e6e6e6;
+  font-family: ui-monospace, "Cascadia Code", "Consolas", monospace;
+  font-size: 0.8rem;
+}
+.msgRow input[type="color"] {
+  width: 24px;
+  height: 22px;
+  padding: 0;
+  border: 1px solid #3a3a3a;
+  border-radius: 4px;
+  background: none;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.msgRow select {
+  padding: 4px 6px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  border: 1px solid #3a3a3a;
+  background: #0f0f11;
+  color: #e6e6e6;
+}
+.msgRow input[type="number"] {
+  width: 60px;
+  padding: 4px 6px;
+  border-radius: 6px;
+  border: 1px solid #3a3a3a;
+  background: #0f0f11;
+  color: #e6e6e6;
+  font-size: 0.75rem;
+}
+.art {
+  flex: 1;
+  min-width: 140px;
+  padding: 5px 9px;
+  border-radius: 6px;
+  resize: vertical;
+  border: 1px solid #3a3a3a;
+  background: #0f0f11;
+  color: #e6e6e6;
+  font-family: ui-monospace, "Cascadia Code", "Consolas", monospace;
+  font-size: 0.8rem;
+  line-height: 1.1;
+  letter-spacing: 0.15em;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  align-items: center;
+}
+.field {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.field > label {
+  font-size: 0.72rem;
+  color: #a3a3a3;
+  white-space: nowrap;
+}
+.field input[type="range"] {
+  width: 92px;
+}
+.field select {
+  padding: 4px 6px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  border: 1px solid #3a3a3a;
+  background: #0f0f11;
+  color: #e6e6e6;
+}
+.field input[type="color"] {
+  width: 26px;
+  height: 20px;
+  padding: 0;
+  border: 1px solid #3a3a3a;
+  border-radius: 4px;
+  background: none;
+  cursor: pointer;
+}
+.val {
+  font-size: 0.7rem;
+  color: #8a8a8a;
+  font-family: ui-monospace, "Cascadia Code", "Consolas", monospace;
+  min-width: 2.4em;
+}
+
+.swatch {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1px solid #3a3a3a;
+  cursor: pointer;
+  padding: 0;
+}
+
+.code {
+  width: 100%;
+  min-height: 76px;
+  resize: vertical;
+  font-family: ui-monospace, "Cascadia Code", "Consolas", monospace;
+  font-size: 0.72rem;
+  line-height: 1.45;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #3a3a3a;
+  background: #0f0f11;
+  color: #e6e6e6;
+  box-sizing: border-box;
+}
+.hint {
+  font-size: 0.7rem;
+  color: #8a8a8a;
+  margin: 4px 0 0;
+}
+.status {
+  font-size: 0.72rem;
+  color: #a3a3a3;
+  min-height: 1.2em;
+}
+
+.nameInput {
+  width: 130px;
+  padding: 5px 9px;
+  border-radius: 6px;
+  border: 1px solid #3a3a3a;
+  background: #0f0f11;
+  color: #e6e6e6;
+  font-size: 0.8rem;
+}
