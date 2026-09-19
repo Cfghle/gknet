@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import NeonBoard, { type NeonBoardHandle } from "./NeonBoard";
+import NeonFullscreen from "./NeonFullscreen";
 import { colorListTagAt, parseTagAttrsPublic } from "./engine";
 import {
   ACCENT_HEX,
@@ -104,6 +105,7 @@ export default function NeonEditor() {
   const [cfg, setCfg] = useState<NeonConfig>(() => mergeConfig(cloneConfig(DEFAULTS), {}));
   const boardRef = useRef<NeonBoardHandle>(null);
   const [playing, setPlaying] = useState(true);
+  const [fullscreen, setFullscreen] = useState(false);
 
   const inputRefs = useRef<Map<number, HTMLInputElement>>(new Map());
   const [focusedIndex, setFocusedIndex] = useState<number | null>(0);
@@ -455,6 +457,17 @@ export default function NeonEditor() {
           </button>
           <button className={`${styles.btn} ${styles.btnSub}`} disabled={exporting} onClick={() => boardRef.current?.restart()}>
             ↺ 처음부터
+          </button>
+          <button
+            className={`${styles.btn} ${styles.btnSub}`}
+            disabled={exporting}
+            title="전광판만 화면에 꽉 채워 보여줍니다"
+            onClick={() => {
+              boardRef.current?.setPlaying(false); // 전체화면 보드가 대신 돌아가는 동안 편집기 보드는 쉰다
+              setFullscreen(true);
+            }}
+          >
+            ⛶ 전체화면
           </button>
         </div>
 
@@ -839,6 +852,16 @@ export default function NeonEditor() {
           <p className={styles.hint}>붙여넣은 코드는 실행하지 않고 읽기만 합니다. JSON, &quot;문구&quot;, [&quot;문구1&quot;,&quot;문구2&quot;] 형태를 받습니다.</p>
         </div>
       </div>
+
+      {fullscreen && (
+        <NeonFullscreen
+          config={cfg}
+          onClose={() => {
+            setFullscreen(false);
+            boardRef.current?.setPlaying(playing);
+          }}
+        />
+      )}
     </div>
   );
 }
