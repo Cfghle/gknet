@@ -1,0 +1,76 @@
+{
+  "id": "house",
+  "name": "집 안",
+  "w": 10,
+  "h": 8,
+  "layers": {
+    "ground": [
+      ["floor","floor","floor","floor","floor","floor","floor","floor","floor","floor"],
+      ["floor","floor","floor","floor","floor","floor","floor","floor","floor","floor"],
+      ["floor","floor","floor","floor","floor","floor","floor","floor","floor","floor"],
+      ["floor","floor","floor","floor","floor","floor","floor","floor","floor","floor"],
+      ["floor","floor","floor","floor","floor","floor","floor","floor","floor","floor"],
+      ["floor","floor","floor","floor","floor","floor","floor","floor","floor","floor"],
+      ["floor","floor","floor","floor","floor","floor","floor","floor","floor","floor"],
+      ["floor","floor","floor","floor","floor","floor","floor","floor","floor","floor"]
+    ],
+    "object": [
+      ["wall","wall","wall","wall","wall","wall","wall","wall","wall","wall"],
+      ["wall",null,null,null,null,null,null,null,null,"wall"],
+      ["wall",null,null,null,null,null,null,null,null,"wall"],
+      ["wall",null,null,null,null,null,null,null,null,"wall"],
+      ["wall",null,null,null,null,null,null,null,null,"wall"],
+      ["wall",null,null,null,null,null,null,null,null,"wall"],
+      ["wall",null,null,null,null,null,null,null,null,"wall"],
+      ["wall","wall","wall","wall","wall","door","wall","wall","wall","wall"]
+    ],
+    "overlay": [
+      [null,null,null,null,null,null,null,null,null,null],
+      [null,null,null,null,null,null,null,null,null,null],
+      [null,null,null,null,null,null,null,null,null,null],
+      [null,null,null,null,null,null,null,null,null,null],
+      [null,null,null,null,null,null,null,null,null,null],
+      [null,null,null,null,null,null,null,null,null,null],
+      [null,null,null,null,null,null,null,null,null,null],
+      [null,null,null,null,null,null,null,null,null,null]
+    ]
+  },
+  "collision": [
+    [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+    [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+    [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+    [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+    [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+    [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+    [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+    [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]
+  ],
+  "spawn": {
+    "x": 5,
+    "y": 6
+  },
+  "events": [
+    {
+      "id": "house-door",
+      "x": 5,
+      "y": 7,
+      "kind": "warp",
+      "trigger": "touch",
+      "to": {
+        "mapId": "village",
+        "x": 4,
+        "y": 5
+      }
+    },
+    {
+      "id": "house-chest",
+      "x": 3,
+      "y": 3,
+      "kind": "message",
+      "trigger": "action",
+      "tileId": "chest",
+      "solid": true,
+      "text": "따뜻한 방이다.\n여기서 쉬면 기분이 좋아진다."
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+{
+  "id": "village",
+  "name": "마을",
+  "w": 16,
+  "h": 12,
+  "layers": {
+    "ground": [
+      ["grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass"],
+      ["grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass"],
+      ["grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","water","water","water","water","grass","grass"],
+      ["grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","water","water","water","water","grass","grass"],
+      ["grass","grass","grass","grass","path","grass","grass","grass","grass","grass","water","water","water","water","grass","grass"],
+      ["grass","grass","grass","grass","path","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass"],
+      ["grass","grass","grass","grass","path","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass"],
+      ["path","path","path","path","path","path","path","path","path","path","path","path","path","path","path","path"],
+      ["grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass"],
+      ["grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass"],
+      ["grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass"],
+      ["grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass"]
+    ],
+    "object": [
+      ["tree","tree","tree","tree","tree","tree","tree","tree","tree","tree","tree","tree","tree","tree","tree","tree"],
+      ["tree",null,null,null,null,null,null,null,null,null,null,null,null,null,null,"tree"],
+      ["tree",null,null,null,null,null,null,null,null,null,null,null,null,null,null,"tree"],
+      ["tree",null,null,"wall","wall","wall","wall",null,null,null,null,null,null,null,null,"tree"],
+      ["tree",null,null,"wall","door","wall","wall",null,null,null,null,null,null,null,null,"tree"],
+      ["tree",null,null,null,null,null,null,"rock",null,null,null,null,null,null,null,"tree"],
+      ["tree",null,null,null,null,null,null,null,null,null,null,null,null,null,null,"tree"],
+      ["tree",null,null,null,null,null,null,null,null,null,null,null,null,null,null,"tree"],
+      ["tree",null,null,null,null,null,null,null,null,null,null,null,null,null,null,"tree"],
+      ["tree",null,null,null,null,null,null,null,"rock",null,null,null,null,null,null,"tree"],
+      ["tree",null,null,null,null,null,null,null,null,null,null,null,null,null,null,"tree"],
+      ["tree","tree","tree","tree","tree","tree","tree","tree","tree","tree","tree","tree","tree","tree","tree","tree"]
+    ],
+    "overlay": [
+      [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+      [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+      [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+      [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+      [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+      [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+      [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+      [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+      [null,null,null,null,null,null,null,null,null,null,null,null,"tree",null,null,null],
+      [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+      [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+      [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]
+    ]
+  },
+  "collision": [
+    [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+    [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+    [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+    [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+    [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+    [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+    [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+    [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+    [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+    [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+    [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+    [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]
+  ],
+  "spawn": {
+    "x": 4,
+    "y": 8
+  },
+  "events": [
+    {
+      "id": "village-chest",
+      "x": 6,
+      "y": 8,
+      "kind": "message",
+      "trigger": "action",
+      "tileId": "chest",
+      "solid": true,
+      "text": "상자를 열었다.\n안에는 먼지만 가득하다…"
+    },
+    {
+      "id": "village-door",
+      "x": 4,
+      "y": 4,
+      "kind": "warp",
+      "trigger": "touch",
+      "to": {
+        "mapId": "house",
+        "x": 5,
+        "y": 6
+      }
+    }
+  ]
+}

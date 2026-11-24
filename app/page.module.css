@@ -8,6 +8,6 @@
     text-underline-offset: 3px;
     background-color: #ffffff20;
 }
-.projects-list li a:click{
+.projects-list li a:active{ /* 누르고 있는 동안 (:click 이라는 건 없음) */
     color: red;
 }

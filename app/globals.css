@@ -1,5 +1,12 @@
 @import "tailwindcss";
 
+/* 도트 폰트 (갈무리 모노). 만화 말풍선과 게임 대사창에서 쓴다 */
+@font-face {
+    font-family: "gal";
+    src: url("/fonts/GalmuriMono9.woff2") format("woff2");
+    font-display: swap;
+}
+
 
 .header{
     position: relative;
